@@ -33,6 +33,7 @@ const turnManager = (function() {
 
 
 function createGame (board, turnManager) {
+    let _is_over = false;
     const _board = board;
     const _player1 = createPlayer(1);
     const _player2 = createPlayer(2);
@@ -50,12 +51,16 @@ function createGame (board, turnManager) {
     }
 
     const play = (x,y) => {
+        if (_is_over) {
+            return
+        }
         if (board.getSpot(x,y) == _player1.get() || board.getSpot(x,y) == _player2.get()) {
             return
         }
         board.setSpot(x,y,_activePlayer());
         if (_checkLine(_board.getRow(x))||_checkLine(_board.getCol(y))||_checkLine(_board.getDiagCres())||_checkLine(_board.getDiagDesc())){
             console.log(_activePlayer() + " Won!")
+            _is_over = true;
         };
         board.printBoard();
         _turnManager.passTurn();
@@ -69,3 +74,4 @@ game.play(1,0);
 game.play(1,1);
 game.play(1,2);
 game.play(2,2);
+game.play(2,1);
