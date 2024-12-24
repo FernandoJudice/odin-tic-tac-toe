@@ -54,7 +54,7 @@ function createGame (board, turnManager) {
             return
         }
         board.setSpot(x,y,_activePlayer());
-        if (_checkLine(_board.getRow(x))||_checkLine(_board.getCol(y))||_checkLine(_board.getDiagCres()||_checkLine(_board.getDiagDesc()))){
+        if (_checkLine(_board.getRow(x))||_checkLine(_board.getCol(y))||_checkLine(_board.getDiagCres())||_checkLine(_board.getDiagDesc())){
             console.log(_activePlayer() + " Won!")
         };
         board.printBoard();
@@ -65,8 +65,7 @@ function createGame (board, turnManager) {
 
 const game = createGame(board,turnManager)
 game.play(0,0);
-game.play(0,0);
 game.play(1,0);
-game.play(0,1);
 game.play(1,1);
-game.play(0,2);
+game.play(1,2);
+game.play(2,2);
