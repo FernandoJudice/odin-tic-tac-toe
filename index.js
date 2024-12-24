@@ -52,10 +52,10 @@ function createGame (board, turnManager) {
 
     const play = (x,y) => {
         if (_is_over) {
-            return
+            return board.getSpot(x,y)
         }
         if (board.getSpot(x,y) == _player1.get() || board.getSpot(x,y) == _player2.get()) {
-            return
+            return board.getSpot(x,y)
         }
         board.setSpot(x,y,_activePlayer());
         if (_checkLine(_board.getRow(x))||_checkLine(_board.getCol(y))||_checkLine(_board.getDiagCres())||_checkLine(_board.getDiagDesc())){
@@ -64,14 +64,41 @@ function createGame (board, turnManager) {
         };
         board.printBoard();
         _turnManager.passTurn();
+        return board.getSpot(x,y)
     }
     return {play}
 };
 
+function makeUpdateSpot(i,j,game, button) {
+    const x = i;
+    const y = j;
+    const _game = game;
+    const _button = button;
+    return function updateSpot ()  {
+        _button.textContent = _game.play(x,y);
+    }
+}
+
+
+function renderBoard() {
+   
+    for(let i=0; i<3; i++) {
+        const row = document.createElement("tr");
+        boardVisual.appendChild(row)
+        
+        for(let j=0; j<3; j++) {
+            const col = document.createElement("td");
+            row.appendChild(col);
+            
+            const button = document.createElement("button");
+            button.classList.add("myButton");
+            button.addEventListener("click", makeUpdateSpot(i,j, game, button))
+            col.appendChild(button);
+        }
+    }
+}
+
+
+
 const game = createGame(board,turnManager)
-game.play(0,0);
-game.play(1,0);
-game.play(1,1);
-game.play(1,2);
-game.play(2,2);
-game.play(2,1);
+renderBoard();

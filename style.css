@@ -3,3 +3,17 @@
     justify-content: center;
     color: #293241;
 }
+
+.myButton {
+    color: white;
+    margin: 0px 16px;
+    background-color: olivedrab;
+    padding: 16px 24px;
+    border: 16px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+table,th, td {
+    border: 1px solid;
+}
