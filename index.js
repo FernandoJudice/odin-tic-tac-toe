@@ -35,8 +35,8 @@ const turnManager = (function() {
 function createGame (board, turnManager) {
     let _is_over = false;
     const _board = board;
-    const _player1 = createPlayer(1);
-    const _player2 = createPlayer(2);
+    const _player1 = createPlayer("X");
+    const _player2 = createPlayer("O");
     const _turnManager = turnManager;
     const _activePlayer = () => _turnManager.getTurn() % 2 == 0 ? _player1.get() : _player2.get();
 
@@ -69,36 +69,37 @@ function createGame (board, turnManager) {
     return {play}
 };
 
-function makeUpdateSpot(i,j,game, button) {
-    const x = i;
-    const y = j;
-    const _game = game;
-    const _button = button;
-    return function updateSpot ()  {
-        _button.textContent = _game.play(x,y);
-    }
-}
 
-
-function renderBoard() {
-   
-    for(let i=0; i<3; i++) {
-        const row = document.createElement("tr");
-        boardVisual.appendChild(row)
-        
-        for(let j=0; j<3; j++) {
-            const col = document.createElement("td");
-            row.appendChild(col);
-            
-            const button = document.createElement("button");
-            button.classList.add("myButton");
-            button.addEventListener("click", makeUpdateSpot(i,j, game, button))
-            col.appendChild(button);
+const gameRenderer= (function() {
+    const _makeUpdateSpot = (i,j,game, button) => {
+        const x = i;
+        const y = j;
+        const _game = game;
+        const _button = button;
+        return function updateSpot ()  {
+            _button.textContent = _game.play(x,y);
         }
     }
-}
 
+    const renderBoard = () => {
+        for(let i=0; i<3; i++) {
+            const row = document.createElement("tr");
+            boardVisual.appendChild(row)
+            
+            for(let j=0; j<3; j++) {
+                const col = document.createElement("td");
+                row.appendChild(col);
+                
+                const button = document.createElement("button");
+                button.classList.add("myButton");
+                button.addEventListener("click", _makeUpdateSpot(i,j, game, button))
+                col.appendChild(button);
+            }
+        }
+    }
+    return {renderBoard}
+})()
 
 
 const game = createGame(board,turnManager)
-renderBoard();
+gameRenderer.renderBoard();
