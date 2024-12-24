@@ -1,4 +1,5 @@
 const boardVisual = document.querySelector(".board");
+const result = document.querySelector(".result");
 
 const board = (function() {
     const _board = [];
@@ -59,10 +60,9 @@ function createGame (board, turnManager) {
         }
         board.setSpot(x,y,_activePlayer());
         if (_checkLine(_board.getRow(x))||_checkLine(_board.getCol(y))||_checkLine(_board.getDiagCres())||_checkLine(_board.getDiagDesc())){
-            console.log(_activePlayer() + " Won!")
+            result.textContent = _activePlayer() + " Won!"; 
             _is_over = true;
         };
-        board.printBoard();
         _turnManager.passTurn();
         return board.getSpot(x,y)
     }
