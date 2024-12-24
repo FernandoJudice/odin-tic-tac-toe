@@ -9,7 +9,14 @@
 </head>
 <body>
     <div class="container">
-        <table class="board"></table>
+        <div class="gameForm">
+            <label for="p1name">Player 1 Name?</label>
+            <input type="text" id="player1" name="p1name" required>
+            <label for="p2name">Player 2 Name?</label>
+            <input type="text" id="player2" name="p2name" required>
+            <button class="myButton" id="newGame">New Game</button>
+        </div>
+        <div class="board"></div>
         <div class="result"></div>
     </div>
 </body>
